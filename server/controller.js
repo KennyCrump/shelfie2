@@ -1,11 +1,22 @@
 module.exports = {
 
     readAll: (req, res) => {
+        // console.log('REQQ: ', req)
         const db = req.app.get('db')
         db.get_all().then(items => {
             res.status(200).send(items)
         })
     },
+
+    readOne: (req, res) => {
+        let {id} = req.params
+        console.log(req.params)
+        const db = req.app.get('db')
+        db.get_one({id}).then(item => {
+            res.status(200).send(item)
+        })
+    },
+
     create: (req, res) => {
         const db = req.app.get('db')
         let {name, price, image} = req.body

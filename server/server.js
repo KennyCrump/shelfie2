@@ -9,6 +9,7 @@ const app = express()
 app.use(bodyParser.json())
 
 app.get('/api/inventory', ctrl.readAll)
+app.get('/api/product/:id', ctrl.readOne)
 app.post('/api/product', ctrl.create)
 app.delete('/api/product/:id', ctrl.delete)
 app.put('/api/product/:id', ctrl.update)

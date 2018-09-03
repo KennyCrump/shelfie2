@@ -1,5 +1,6 @@
 import React from 'react'
 import './Product.css'
+import {Link} from 'react-router-dom'
 
 export default function Product(props){
     return(
@@ -13,7 +14,9 @@ export default function Product(props){
             </div>
             <img className="productImage" src={props.image} alt={props.name}/>
             <button onClick={() => props.deleteItem(props.productID)}>Delete</button>
-            <button onClick={() => props.updateSelectedProduct(props.productID)}>Edit</button>
+            <Link to={`/editItem/${props.productID}`}>
+                <button>Edit</button>
+            </Link>
             
         
         </div>

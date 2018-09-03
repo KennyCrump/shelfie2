@@ -1,31 +1,45 @@
 import React, {Component} from 'react';
 import Product from '../Product/Product'
+import axios from 'axios'
+import {Link} from 'react-router-dom'
 
 
 
 class Dashboard extends Component{
-    // constructor(props){
-    //     super(props)
+    constructor(props){
+        super(props)
 
-    //     this.state={
-    //         update: false
-    //     }
-    // }
+        this.state={
+            inventoryList: []
+        }
+    }
 
+    updateInventoryList = (val) => {
+        this.setState({
+          inventoryList: val
+        })
+    }
 
-    // componentWillReceiveProps(props){
-    //     let {refresh} = this.props
-    //     if(props.refresh !== refresh){
-    //         axios.get('/api/post').then(res => {this.setState({ update: !update })})
-    //     }
-    // }
+    componentDidMount() {
+        axios.get('/api/inventory').then((results) => {
+          this.updateInventoryList(results.data)
+        })
+      }
+
+    deleteItem = (id) => {
+        axios.delete(`/api/product/${id}`)
+        .then(results => {
+            console.log("Successfully Deleted Item")
+            this.updateInventoryList(results.data)
+        })
+    }
 
 
     render(){
-        let {inventoryList} = this.props
-        let displayInventory = inventoryList.map((item, index) => {
+        // let {inventoryList} = this.props
+        let displayInventory = this.state.inventoryList.map((item, index) => {
             console.log("Mapped Item: ", item)
-           return <Product key={index} updateSelectedProduct={this.props.updateSelectedProduct} deleteItem={this.props.deleteItem} productID={item.product_id} name={item.name} price={item.price} image={item.image_url} />
+           return <Product key={index} deleteItem={this.deleteItem} productID={item.product_id} name={item.name} price={item.price} image={item.image_url} />
         })
         return(
             <div className="dashboard"> Dashboard 

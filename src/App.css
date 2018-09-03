@@ -7,13 +7,21 @@
   width: 100vw;
   height: 20vh;
   background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.headerButton{
+  margin: 20px;
 }
 .dashboard{
   width: 60vw;
   height: 80vh;
+  margin-left: 20vw;
   background-color: antiquewhite;
 }
 .form{
   width: 38vw;
+  margin-left: 31vw;
   height: 80vh;
 }
